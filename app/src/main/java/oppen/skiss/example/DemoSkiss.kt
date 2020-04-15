@@ -1,8 +1,6 @@
 package oppen.skiss.example
 
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import oppen.skiss.lib.Skiss
 import oppen.skiss.lib.SkissView
 import oppen.skiss.lib.color
