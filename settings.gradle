@@ -1,0 +1,3 @@
+rootProject.name='Skiss'
+include ':app'
+include ':skisslib'
