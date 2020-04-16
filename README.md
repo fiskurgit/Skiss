@@ -60,7 +60,32 @@ class DemoSkiss(view: SkissView): Skiss(view) {
 }
 ```
 
-### References
+## Reference
+
+#### smooth/noSmooth
+
+Anti-aliasing is off by default, screens on modern devices are so high resolution it may not be needed at all. Skiss uses the same beginner-friendly naming as Processing, turn anti-aliasing on in setup:
+
+```kotlin
+override fun setup(width: Int, height: Int) {
+    smooth()
+}
+```
+
+#### stroke/noStroke
+
+Stroke is used for lines, points, and shape borders. Supply a colour int for Skiss to draw with: `stroke(aColour)`. Be sure to pre calculate the colour value and assign to a field, avoid any allocations in the update block. Turn off stroke drawing with `noStroke()`
+
+#### fill/noFill
+
+Same as stroke above but for shape fills, eg:
+
+```kotlin
+fill(red)
+circle(100, 100, 20)
+```
+
+### Development References
 * [Custom Drawing](https://developer.android.com/training/custom-views/custom-drawing)
 * [Optimizing the View](https://developer.android.com/training/custom-views/optimizing-view)
 * [Hardware acceleration](https://developer.android.com/guide/topics/graphics/hardware-accel.html)
