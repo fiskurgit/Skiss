@@ -12,8 +12,6 @@ class SkissView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0): View(context, attrs, defStyleAttr), Choreographer.FrameCallback {
 
-    private var frameNanos = System.nanoTime()
-
     private var onSetup: (width: Int, height: Int) -> Unit? = {_,_->}
     private var onTouch: (x: Int, y: Int) -> Unit? = {_,_->}
     private var onDraw: (canvas: Canvas?) -> Unit? = {_->}
@@ -51,7 +49,6 @@ class SkissView @JvmOverloads constructor(
     }
 
     override fun doFrame(frameTimeNanos: Long) {
-        frameNanos = frameTimeNanos
         invalidate()
         Choreographer.getInstance().postFrameCallback(this)
     }
