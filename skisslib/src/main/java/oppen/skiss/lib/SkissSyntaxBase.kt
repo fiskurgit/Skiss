@@ -5,16 +5,14 @@ import android.graphics.Paint
 
 abstract class SkissSyntaxBase {
 
-    private val fillPaint = Paint()
-    private val strokePaint = Paint()
+    class SkissPaint(var active: Boolean = false): Paint()
 
-    init {
-        fillPaint.style = Paint.Style.FILL
-        strokePaint.style = Paint.Style.STROKE
+    private val fillPaint = SkissPaint().apply {
+        style = Paint.Style.FILL
     }
-
-    var doFill = false
-    var doStroke = false
+    private val strokePaint = SkissPaint().apply {
+        style = Paint.Style.STROKE
+    }
 
     var width = -1
     var height = -1
@@ -27,35 +25,35 @@ abstract class SkissSyntaxBase {
 
     fun stroke(color: String){
         strokePaint.color = color(color)
-        doStroke = true
+        strokePaint.active = true
     }
 
     fun stroke(color: Int){
         strokePaint.color = color
-        doStroke = true
+        strokePaint.active = true
     }
 
     fun fill(color: String){
         fillPaint.color = color(color)
-        doFill = true
+        fillPaint.active = true
     }
 
     fun fill(color: Int){
         fillPaint.color = color
-        doFill = true
+        fillPaint.active = true
     }
 
     fun noFill(){
-        doFill = false
+        fillPaint.active = false
     }
     fun noStroke(){
-        doStroke = false
+        strokePaint.active = false
     }
     fun line(x1: Number, y1: Number, x2: Number, y2: Number){
-        if(doStroke) canvas?.drawLine(x1.toFloat(), y1.toFloat(),x2.toFloat(), y2.toFloat(), strokePaint)
+        if(strokePaint.active) canvas?.drawLine(x1.toFloat(), y1.toFloat(),x2.toFloat(), y2.toFloat(), strokePaint)
     }
     fun circle(x: Number, y: Number, radius: Number){
-        if(doStroke) canvas?.drawCircle(x.toFloat(), y.toFloat(), radius.toFloat(), strokePaint)
-        if(doFill) canvas?.drawCircle(x.toFloat(), y.toFloat(), radius.toFloat(), fillPaint)
+        if(strokePaint.active) canvas?.drawCircle(x.toFloat(), y.toFloat(), radius.toFloat(), strokePaint)
+        if(fillPaint.active) canvas?.drawCircle(x.toFloat(), y.toFloat(), radius.toFloat(), fillPaint)
     }
 }
