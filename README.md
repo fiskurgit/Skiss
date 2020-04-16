@@ -1,9 +1,7 @@
 # Skiss
 Skiss (Swedish: _Sketch_): an extremely basic 2D animation system for Android.  
 
-It's little more than a game loop, but it's very fast and lightweight and has a similar structure and syntax to [Processing](https://processing.org/).  
-
-This is very new with limited functionality.
+It's little more than a game loop, but it's very fast and lightweight and has a structure and syntax influenced by [Processing](https://processing.org/).  
 
 ## Setup
 
@@ -16,7 +14,7 @@ Add a `SkissView` to your layout:
     android:layout_height="match_parent" />
 ```
 
-Create a class that extends `Skiss` (see example below), pass in the view and start from your Activity/Fragment:
+Create a subclass of `Skiss` (see example below), pass in the view and start from your Activity/Fragment:
 
 ```kotlin
 DemoSkiss(skiss_view).start()

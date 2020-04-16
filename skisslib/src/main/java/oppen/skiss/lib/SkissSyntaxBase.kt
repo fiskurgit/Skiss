@@ -14,9 +14,11 @@ abstract class SkissSyntaxBase {
 
     private val fillPaint = SkissPaint().apply {
         style = Paint.Style.FILL
+        isAntiAlias = true
     }
     private val strokePaint = SkissPaint().apply {
         style = Paint.Style.STROKE
+        isAntiAlias = true
     }
 
     var width = -1
