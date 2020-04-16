@@ -52,3 +52,7 @@ fun l(message: String){
     Log.d("SKISS", message)
 }
 
+fun e(message: String){
+    Log.e("SKISS", message)
+}
+

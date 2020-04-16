@@ -20,8 +20,6 @@ class SkissView @JvmOverloads constructor(
     private var hardwareAccCheckRequired = true
 
     init {
-        setLayerType(LAYER_TYPE_HARDWARE, null)
-
         setOnTouchListener{ _, motionEvent ->
             when (motionEvent!!.action and MotionEvent.ACTION_MASK){
                 MotionEvent.ACTION_DOWN -> {
@@ -65,10 +63,18 @@ class SkissView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas?) {
-        if(hardwareAccCheckRequired){
-            hardwareAccCheckRequired = false
-            l("Hardware acceleration: ${canvas?.isHardwareAccelerated}")
-        }
+        if(hardwareAccCheckRequired) hardwareAccelerationCheck(canvas)
         if(initialised) onDraw.invoke(canvas)
+    }
+
+    private fun hardwareAccelerationCheck(canvas: Canvas?){
+        hardwareAccCheckRequired = false
+        if(canvas == null) return
+
+        if(canvas.isHardwareAccelerated){
+            l("View is using hardware acceleration")
+        }else{
+            e("View is NOT using hardware acceleration")
+        }
     }
 }
