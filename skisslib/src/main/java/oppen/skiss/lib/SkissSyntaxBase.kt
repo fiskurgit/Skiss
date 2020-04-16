@@ -28,6 +28,16 @@ abstract class SkissSyntaxBase {
         canvas?.drawColor(color)
     }
 
+    fun smooth(){
+        strokePaint.isAntiAlias = true
+        fillPaint.isAntiAlias = true
+    }
+
+    fun noSmooth(){
+        strokePaint.isAntiAlias = false
+        fillPaint.isAntiAlias = false
+    }
+
     fun stroke(color: String){
         strokePaint.apply {
             this.color = color(color)
