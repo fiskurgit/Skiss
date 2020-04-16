@@ -2,10 +2,15 @@ package oppen.skiss.lib
 
 import android.graphics.Canvas
 import android.graphics.Paint
+import oppen.skiss.lib.objects.Coord
 
 abstract class SkissSyntaxBase {
 
-    class SkissPaint(var active: Boolean = false): Paint()
+    class SkissPaint(var active: Boolean = false): Paint(){
+        fun draw(operation: () -> Unit){
+            if(active) operation.invoke()
+        }
+    }
 
     private val fillPaint = SkissPaint().apply {
         style = Paint.Style.FILL
@@ -24,36 +29,90 @@ abstract class SkissSyntaxBase {
     }
 
     fun stroke(color: String){
-        strokePaint.color = color(color)
-        strokePaint.active = true
+        strokePaint.apply {
+            this.color = color(color)
+            active = true
+        }
+    }
+
+    fun strokeWeight(weight: Number){
+        strokePaint.apply{
+            strokeWidth = weight.toFloat()
+        }
     }
 
     fun stroke(color: Int){
-        strokePaint.color = color
-        strokePaint.active = true
+        strokePaint.apply {
+            this.color = color
+            active = true
+        }
     }
 
     fun fill(color: String){
-        fillPaint.color = color(color)
-        fillPaint.active = true
+        fillPaint.apply {
+            this.color = color(color)
+            active = true
+        }
     }
 
     fun fill(color: Int){
-        fillPaint.color = color
-        fillPaint.active = true
+        fillPaint.apply{
+            this.color = color
+            active = true
+        }
     }
 
     fun noFill(){
         fillPaint.active = false
     }
+
     fun noStroke(){
         strokePaint.active = false
     }
+
     fun line(x1: Number, y1: Number, x2: Number, y2: Number){
-        if(strokePaint.active) canvas?.drawLine(x1.toFloat(), y1.toFloat(),x2.toFloat(), y2.toFloat(), strokePaint)
+        strokePaint.draw {
+            canvas?.drawLine(x1.toFloat(), y1.toFloat(),x2.toFloat(), y2.toFloat(), strokePaint)
+        }
     }
+
+    fun lines(lines: List<Pair<Coord, Coord>>){
+        strokePaint.draw {
+            canvas?.drawLines(lines.flatMap {
+                arrayListOf(it.first.x, it.first.y, it.second.x, it.second.y)
+            }.toFloatArray(), strokePaint)
+        }
+    }
+
     fun circle(x: Number, y: Number, radius: Number){
-        if(strokePaint.active) canvas?.drawCircle(x.toFloat(), y.toFloat(), radius.toFloat(), strokePaint)
-        if(fillPaint.active) canvas?.drawCircle(x.toFloat(), y.toFloat(), radius.toFloat(), fillPaint)
+        strokePaint.draw {
+            canvas?.drawCircle(x.toFloat(), y.toFloat(), radius.toFloat(), strokePaint)
+        }
+        fillPaint.draw{
+            canvas?.drawCircle(x.toFloat(), y.toFloat(), radius.toFloat(), fillPaint)
+        }
+    }
+
+    fun square(x: Number, y: Number, diameter: Number){
+        strokePaint.draw {
+            canvas?.drawRect(x.toFloat(), y.toFloat(), (x.toFloat() + diameter.toFloat()),(y.toFloat() + diameter.toFloat()),  strokePaint)
+        }
+        fillPaint.draw{
+            canvas?.drawRect(x.toFloat(), y.toFloat(), (x.toFloat() + diameter.toFloat()),(y.toFloat() + diameter.toFloat()),  fillPaint)
+        }
+    }
+
+    fun points(points: List<Coord>){
+        strokePaint.draw {
+            canvas?.drawPoints(points.flatMap {
+                arrayListOf(it.x, it.y)
+            }.toFloatArray(), strokePaint)
+        }
+    }
+
+    fun point(point: Coord){
+        strokePaint.draw {
+            canvas?.drawPoint(point.x, point.y, strokePaint)
+        }
     }
 }

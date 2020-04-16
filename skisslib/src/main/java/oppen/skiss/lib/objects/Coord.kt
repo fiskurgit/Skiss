@@ -1,9 +1,9 @@
-package oppen.skiss.lib
+package oppen.skiss.lib.objects
 
 data class Coord(var x: Float, var y: Float){
 
     companion object{
-        fun empty(): Coord{
+        fun empty(): Coord {
             return Coord(0, 0)
         }
     }
@@ -21,11 +21,11 @@ data class Coord(var x: Float, var y: Float){
         this.y = y.toFloat()
     }
 
-    fun toVector(): Vektor{
+    fun toVector(): Vektor {
         return Vektor(x, y)
     }
 
-    fun clone(): Coord{
+    fun clone(): Coord {
         return Coord(x, y)
     }
 }

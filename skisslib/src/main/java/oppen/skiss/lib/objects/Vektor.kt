@@ -1,5 +1,6 @@
-package oppen.skiss.lib
+package oppen.skiss.lib.objects
 
+import oppen.skiss.lib.random
 import kotlin.math.sqrt
 
 data class Vektor(var x: Float, var y: Float) {
@@ -12,27 +13,40 @@ data class Vektor(var x: Float, var y: Float) {
             return v1.x * v2.x + v1.y * v2.y
         }
 
-        fun randomDirection(): Vektor{
-            val direction = Vektor(random(-1f, 1f), random(-1f, 1f))
+        fun randomDirection(): Vektor {
+            val direction = Vektor(
+                random(
+                    -1f,
+                    1f
+                ), random(-1f, 1f)
+            )
             direction.normalise()
             return direction
         }
 
-        fun randomPosition(width: Number, height: Number): Vektor{
-            return Vektor(random(0f, width), random(0f,height))
+        fun randomPosition(width: Number, height: Number): Vektor {
+            return Vektor(
+                random(
+                    0f,
+                    width
+                ), random(0f, height)
+            )
         }
 
         fun direction(start: Vektor, end: Vektor): Vektor {
-            return Vektor(end.x - start.x, end.y - start.y)
+            return Vektor(
+                end.x - start.x,
+                end.y - start.y
+            )
         }
 
-        fun normal(vectorA: Vektor, vectorB: Vektor): Vektor{
+        fun normal(vectorA: Vektor, vectorB: Vektor): Vektor {
             val delta = vectorA - vectorB
             delta.normalize()
             return Vektor(-delta.y, delta.x)
         }
 
-        fun empty(): Vektor{
+        fun empty(): Vektor {
             return Vektor(0, 0)
         }
     }
@@ -92,22 +106,35 @@ data class Vektor(var x: Float, var y: Float) {
         return x * x + y * y
     }
 
-    fun coord(): Coord = Coord(x, y)
+    fun coord(): Coord =
+        Coord(x, y)
 
     operator fun plus(vector: Vektor): Vektor {
-        return Vektor(this.x + vector.x, this.y + vector.y)
+        return Vektor(
+            this.x + vector.x,
+            this.y + vector.y
+        )
     }
 
     operator fun minus(vector: Vektor): Vektor {
-        return Vektor(this.x - vector.x, this.y - vector.y)
+        return Vektor(
+            this.x - vector.x,
+            this.y - vector.y
+        )
     }
 
     operator fun times(value: Number): Vektor {
-        return Vektor(this.x * value.toFloat(), this.y * value.toFloat())
+        return Vektor(
+            this.x * value.toFloat(),
+            this.y * value.toFloat()
+        )
     }
 
     operator fun div(value: Number): Vektor {
-        return Vektor(this.x / value.toFloat(), this.y / value.toFloat())
+        return Vektor(
+            this.x / value.toFloat(),
+            this.y / value.toFloat()
+        )
     }
 
     fun clone(): Vektor {
