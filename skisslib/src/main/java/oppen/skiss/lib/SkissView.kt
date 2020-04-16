@@ -17,6 +17,7 @@ class SkissView @JvmOverloads constructor(
     private var onDraw: (canvas: Canvas?) -> Unit? = {_->}
 
     private var initialised = false
+    private var hardwareAccCheckRequired = true
 
     init {
         setLayerType(LAYER_TYPE_HARDWARE, null)
@@ -64,6 +65,10 @@ class SkissView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas?) {
+        if(hardwareAccCheckRequired){
+            hardwareAccCheckRequired = false
+            l("Hardware acceleration: ${canvas?.isHardwareAccelerated}")
+        }
         if(initialised) onDraw.invoke(canvas)
     }
 }
