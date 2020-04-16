@@ -62,5 +62,10 @@ class DemoSkiss(view: SkissView): Skiss(view) {
 }
 ```
 
+### References
+* [Hardware acceleration](https://developer.android.com/guide/topics/graphics/hardware-accel.html)
+* [Getting Started with Android Canvas Drawing](https://medium.com/over-engineering/getting-started-with-drawing-on-the-android-canvas-621cf512f4c7)
+* [Android Canvas Drawing: Useful Graphics Classes & Operations](https://medium.com/over-engineering/android-canvas-drawing-useful-graphics-classes-operations-2803e435e848)
+
 
 
