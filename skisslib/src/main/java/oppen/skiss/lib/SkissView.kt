@@ -75,6 +75,7 @@ class SkissView @JvmOverloads constructor(
             l("View is using hardware acceleration")
         }else{
             e("View is NOT using hardware acceleration")
+            e("See: https://developer.android.com/guide/topics/graphics/hardware-accel.html")
         }
     }
 }
